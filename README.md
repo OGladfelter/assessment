@@ -21,3 +21,5 @@ Note: `daily_dataset.csv` is not included in this repo due to its large size, bu
 2. I took plenty of shortcuts on design choices. For example, the circles - which represent sensors - have a fixed radius. I chose a number which is reasonably-sized both when the map is zoomed far out and far in, however a better solution would be to dynamically resize circles: when the map is zoomed far in, they should be small and precise; when the map iz zoomed far out, they should be large enough to still stand out.
 
 3. Add unit tests!
+
+4. When a user mouses from one sensor on the map to another, the corresponding line chart should update with a nice transition, rather than simply destroy the old line chart and recreate a new one. I use line chart transitions <a href="https://cultureplot.com/mileage-goal/">here</a> (increase the mileage goal to witness).
