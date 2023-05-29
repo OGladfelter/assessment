@@ -2,11 +2,11 @@
 
 ## Data
 
-`libraries.csv` is provided by the city of Chicago and available on <a href="https://www.kaggle.com/datasets/onlyrohit/chicago-public-libraries">Kaggle</a>. Used for a list of valid GPS coordinates in the Chicago area.
+`libraries.csv` is provided by the city of Chicago and available on <a target="_blank" href="https://www.kaggle.com/datasets/onlyrohit/chicago-public-libraries">Kaggle</a>. Used for a list of valid GPS coordinates in the Chicago area.
 
 `meta_data.csv` and `sensor_data_with_loc.csv` are the output of `data-exploration-and-generation.ipynb`, which subsets `daily_dataset.csv` and adds GPS coordinates sourced from `libraries.csv`.  
 
-Note: `daily_dataset.csv` is not included in this repo due to its large size, but can be downloaded on <a href="https://www.kaggle.com/datasets/jeanmidev/smart-meters-in-london?select=darksky_parameters_documentation.html">Kaggle</a>. The sensor data is smart meter data from the London area.
+Note: `daily_dataset.csv` is not included in this repo due to its large size, but can be downloaded on <a target="_blank" href="https://www.kaggle.com/datasets/jeanmidev/smart-meters-in-london?select=darksky_parameters_documentation.html">Kaggle</a>. The sensor data is smart meter data from the London area.
 
 ## Javascript
 
@@ -22,4 +22,4 @@ Note: `daily_dataset.csv` is not included in this repo due to its large size, bu
 
 3. Add unit tests!
 
-4. When a user mouses from one sensor on the map to another, the corresponding line chart should update with a nice transition, rather than simply destroy the old line chart and recreate a new one. I use line chart transitions <a href="https://cultureplot.com/mileage-goal/">here</a> (increase the mileage goal to witness).
+4. When a user mouses from one sensor on the map to another, the corresponding line chart should update with a nice transition, rather than simply destroy the old line chart and recreate a new one. I use line chart transitions <a target="_blank" href="https://cultureplot.com/mileage-goal/">here</a> (increase the mileage goal to witness).
