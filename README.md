@@ -2,9 +2,11 @@
 
 ## Data
 
-Sensor data is <a href="https://www.kaggle.com/datasets/jeanmidev/smart-meters-in-london?select=darksky_parameters_documentation.html">smart meter data</a> from the London area downloaded from Kaggle.
+`libraries.csv`: provided by the city of Chicago and available on <a href="https://www.kaggle.com/datasets/onlyrohit/chicago-public-libraries">Kaggle</a>. Used for a list of valid GPS coordinates in the Chicago area.
 
-GPS coordinates are borrowed from <a href="https://www.kaggle.com/datasets/chicago/chicago-energy-usage-2010">Chicago Energy Usage 2010</a>, also downloaded from Kaggle. The Chicago Energy Usage data has no relation to the London area smart meter data and was used only to collect a list of valid GPS coordinates in the Chicago area.
+`meta_data.csv` and `sensor_data_with_loc.csv` are the output of `data-exploration-and-generation.ipynb`, which subsets `daily_dataset.csv` and adds GPS coordinates sourced from `libraries.csv`.  
+
+Note: `daily_dataset.csv` is not included in this repo due to its large size, but can be downloaded on <a href="https://www.kaggle.com/datasets/jeanmidev/smart-meters-in-london?select=darksky_parameters_documentation.html">Kaggle</a>. The sensor data is smart meter data from the London area.
 
 ## Javascript
 
