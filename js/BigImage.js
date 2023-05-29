@@ -311,7 +311,6 @@
             // this adds background color to the image
             self.ctx.save();
             self.ctx.globalCompositeOperation = 'destination-over';
-            self.ctx.fillStyle = document.getElementById("backgroundColor").value;
             self.ctx.fillRect(0, 0, self.canvas.width, self.canvas.height);
             self.ctx.restore();
 
@@ -371,7 +370,7 @@
                 
                 self.canvas.toBlob(function (blob) {
                     let link = document.createElement('a');
-                    link.download = "activity_heatmap.png";
+                    link.download = "map.png";
                     link.href = URL.createObjectURL(blob);
                     link.click();
                 });

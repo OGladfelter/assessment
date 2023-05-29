@@ -79,7 +79,7 @@ function tooltip(id, data, event) {
     let width = box.offsetWidth;
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 20, bottom: 20, left: 20};
+    var margin = {top: 10, right: 20, bottom: 30, left: 40};
     width = width - margin.left - margin.right;
     var height = screen.height * .25 - margin.top - margin.bottom;
 
@@ -129,7 +129,7 @@ function tooltip(id, data, event) {
 
     // Add the y Axis
     svg.append("g")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y).ticks(5));
 }
 
 // click divs to show / hide menus
