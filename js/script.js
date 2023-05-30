@@ -26,6 +26,8 @@ function drawHeatmap() {
     // icon allowing users to download screenshots
     L.control.bigImage().addTo(map);
 
+    circles = {}
+
     d3.csv("data/sensor_data_with_loc.csv").then(function(sensors) {
         // Get the data
         d3.csv("data/meta_data.csv").then(function(data) {
@@ -34,7 +36,7 @@ function drawHeatmap() {
                 d.lon = +d.lon;
 
                 // add marker to map
-                L.circle([d.lat, d.lon], {radius: 50}).addTo(map)
+                circles[d.LCLid] = L.circle([d.lat, d.lon], {radius: 50}).addTo(map)
                 .bindTooltip('Sensor: ' + d.LCLid, {sticky: true})
                 .addEventListener('mouseover', drawLinechart.bind(null, sensors.filter(s => s.LCLid == d.LCLid)), false)
                 .addEventListener('click', openModal.bind(null, d.LCLid, d.tags), false);
@@ -140,6 +142,42 @@ function openModal(id, tags) {
     document.getElementById("updateModalText").innerHTML = tags;
 }
 
+function filter() {
+    d3.selectAll("path").style("opacity", 0.2);
+
+    d3.csv("data/meta_data.csv").then(function(data) {
+        let subset = data;
+        // all boxes are checked, so all data
+        if (document.getElementById("t").checked && document.getElementById("t2").checked && document.getElementById("t3").checked) {
+            subset = data;
+        }
+        // all boxes unchecked, show only sensors with no tags 
+        else if (!document.getElementById("t").checked && !document.getElementById("t2").checked && !document.getElementById("t3").checked) {
+            subset = data.filter(function(d){return d.tags == ''});
+        }
+        // combination of checked and unchecked
+        else {
+            let sample1 = [];
+            let sample2 = [];
+            let sample3 = [];
+            if (document.getElementById("t").checked) {
+                sample1 = data.filter(function(d){return d.tags.includes('needs repairs')});
+            }
+            if (document.getElementById("t2").checked) {
+                sample2 = data.filter(function(d){return d.tags.includes('high population supplier')});
+            }
+            if (document.getElementById("t3").checked) {
+                sample3 = data.filter(function(d){return d.tags.includes('newer model')});
+            }
+            subset = sample1.concat(sample2).concat(sample3);
+        }
+
+        subset.forEach(function(d) {
+            circles[d.LCLid]._path.style.opacity = 1;
+        });
+    });
+}
+
 // click divs to show / hide menus
 document.getElementById("menuHeaderContainer3").addEventListener("click", function() {
     if (document.getElementById("customizeMenuTable").style.display == "table"){
@@ -149,6 +187,16 @@ document.getElementById("menuHeaderContainer3").addEventListener("click", functi
     else{
        document.getElementById("customizeMenuTable").style.display = "table";
        document.getElementById("menuButton3").innerHTML = "-";
+    }
+});
+document.getElementById("menuHeaderContainer1").addEventListener("click", function() {
+    if (document.getElementById("filterMenuTable").style.display == "table"){
+        document.getElementById("filterMenuTable").style.display = "none";
+        document.getElementById("menuButton1").innerHTML = "+";
+    }
+    else{
+       document.getElementById("filterMenuTable").style.display = "table";
+       document.getElementById("menuButton1").innerHTML = "-";
     }
 });
 
