@@ -64,7 +64,7 @@
       </div>
       <!--  -->
     
-      <!-- modal -->
+      <!-- screenshot modal -->
       <div id="printModal" class="printModal">
         <div class="modal-content-3">
           <span onclick="document.getElementById('printModal').style.display='none';" class="closeButton">&times;</span>
@@ -79,6 +79,21 @@
                   <div id="downloadButton2"><i class="fa fa-download"></i></div>
               </div>
             </div>
+        </div>
+      </div>
+      <!--  -->
+
+      <!-- update modal -->
+      <div id="updateModal" class="printModal">
+        <div class="modal-content-3">
+          <span onclick="document.getElementById('updateModal').style.display='none';" class="closeButton">&times;</span>
+          <h1>&nbsp;</h1>
+          <div class="row">
+            <div id="normalResolutionButton" class="column">
+                <h2 id="updateModalHeader">Update this sensor's tags</h2>
+                <textarea rows="4" cols="50" placeholder="List new tags here" id="updateModalText"></textarea>
+            </div>
+          </div>
         </div>
       </div>
       <!--  -->

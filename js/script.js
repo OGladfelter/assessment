@@ -35,8 +35,9 @@ function drawHeatmap() {
 
                 // add marker to map
                 L.circle([d.lat, d.lon], {radius: 50}).addTo(map)
-                //.bindTooltip(d.LCLid, {sticky: true})
-                .addEventListener('mouseover', tooltip.bind(null, d.LCLid, sensors.filter(s => s.LCLid == d.LCLid)), false);
+                .bindTooltip('Sensor: ' + d.LCLid, {sticky: true})
+                .addEventListener('mouseover', drawLinechart.bind(null, sensors.filter(s => s.LCLid == d.LCLid)), false)
+                .addEventListener('click', openModal.bind(null, d.LCLid, d.tags), false);
             });
         });
     });
@@ -71,7 +72,8 @@ function drawHeatmap() {
     });
 }
 
-function tooltip(id, data, event) {
+function drawLinechart(data, event) {
+    document.getElementById("lineChart").style.display = 'block';
     d3.select("#lineChart").select("svg").remove();
 
     // set the dimensions and margins of the graph
@@ -132,6 +134,12 @@ function tooltip(id, data, event) {
         .call(d3.axisLeft(y).ticks(5));
 }
 
+function openModal(id, tags) {
+    document.getElementById('updateModal').style.display='block';
+    document.getElementById("updateModalHeader").innerHTML = 'Update tags for sensor ' + id;
+    document.getElementById("updateModalText").innerHTML = tags;
+}
+
 // click divs to show / hide menus
 document.getElementById("menuHeaderContainer3").addEventListener("click", function() {
     if (document.getElementById("customizeMenuTable").style.display == "table"){
@@ -144,14 +152,14 @@ document.getElementById("menuHeaderContainer3").addEventListener("click", functi
     }
 });
 
-document.getElementById("printModal").addEventListener("click", function(){
+document.getElementById("printModal").addEventListener("click", function() {
     document.getElementById("printModal").style.display = 'none';
 });
-// for some fun flair...
-document.getElementById("normalResolutionButton").addEventListener("mouseenter", function(){
+// normal or high resolution - normal will be faster and smaller file size, but lower quality
+document.getElementById("normalResolutionButton").addEventListener("mouseenter", function() {
     document.getElementById("downloadButton1").classList.toggle('rotated');
 });
-document.getElementById("highResolutionButton").addEventListener("mouseenter", function(){
+document.getElementById("highResolutionButton").addEventListener("mouseenter", function() {
     document.getElementById("downloadButton2").classList.toggle('rotated');
 });
 

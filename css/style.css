@@ -30,6 +30,7 @@ a:hover {
     padding-right: 10;
     background-color: white;
     border: 1px black solid;
+    display: none;
 }
 
 .menuContainer {
