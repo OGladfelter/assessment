@@ -38,7 +38,7 @@ function drawHeatmap() {
                 // add marker to map
                 circles[d.LCLid] = L.circle([d.lat, d.lon], {radius: 50}).addTo(map)
                 .bindTooltip('Sensor: ' + d.LCLid, {sticky: true})
-                .addEventListener('mouseover', drawLinechart.bind(null, sensors.filter(s => s.LCLid == d.LCLid)), false)
+                //.addEventListener('mouseover', drawLinechart.bind(null, sensors.filter(s => s.LCLid == d.LCLid)), false)
                 .addEventListener('click', openModal.bind(null, d.LCLid, d.tags), false);
             });
         });
@@ -142,34 +142,49 @@ function openModal(id, tags) {
     document.getElementById("updateModalText").innerHTML = tags;
 }
 
-function filter() {
+function filter(tagName = '', checkboxId = '') {
     d3.selectAll("path").style("opacity", 0.2);
 
     d3.csv("data/meta_data.csv").then(function(data) {
         let subset = data;
-        // all boxes are checked, so all data
-        if (document.getElementById("t").checked && document.getElementById("t2").checked && document.getElementById("t3").checked) {
-            subset = data;
-        }
-        // all boxes unchecked, show only sensors with no tags 
-        else if (!document.getElementById("t").checked && !document.getElementById("t2").checked && !document.getElementById("t3").checked) {
-            subset = data.filter(function(d){return d.tags == ''});
-        }
-        // combination of checked and unchecked
-        else {
-            let sample1 = [];
-            let sample2 = [];
-            let sample3 = [];
-            if (document.getElementById("t").checked) {
-                sample1 = data.filter(function(d){return d.tags.includes('needs repairs')});
+        if (tagName == '') {
+            // all boxes are checked, so all data
+            if (document.getElementById("t").checked && document.getElementById("t2").checked && document.getElementById("t3").checked) {
+                subset = data;
             }
-            if (document.getElementById("t2").checked) {
-                sample2 = data.filter(function(d){return d.tags.includes('high population supplier')});
+            // all boxes unchecked, show only sensors with no tags 
+            else if (!document.getElementById("t").checked && !document.getElementById("t2").checked && !document.getElementById("t3").checked) {
+                subset = data.filter(function(d){return d.tags == ''});
             }
-            if (document.getElementById("t3").checked) {
-                sample3 = data.filter(function(d){return d.tags.includes('newer model')});
+            // combination of checked and unchecked
+            else {
+                let sample1 = [];
+                let sample2 = [];
+                let sample3 = [];
+                if (document.getElementById("t").checked) {
+                    sample1 = data.filter(function(d){return d.tags.includes('needs repairs')});
+                }
+                if (document.getElementById("t2").checked) {
+                    sample2 = data.filter(function(d){return d.tags.includes('high population supplier')});
+                }
+                if (document.getElementById("t3").checked) {
+                    sample3 = data.filter(function(d){return d.tags.includes('newer model')});
+                }
+                subset = sample1.concat(sample2).concat(sample3);
             }
-            subset = sample1.concat(sample2).concat(sample3);
+        } else {
+            subset = data.filter(function(d) { 
+                const includesTagName = d.tags.includes(tagName);
+                const lengthOfOne = d.tags.split(", ").length == 2;
+                return includesTagName && lengthOfOne;
+            });
+            ['t', 't2', 't3'].forEach(id => {
+                if (id != checkboxId) {
+                    document.getElementById(id).checked = false;
+                } else {
+                    document.getElementById(id).checked = true;
+                }
+            })
         }
 
         subset.forEach(function(d) {

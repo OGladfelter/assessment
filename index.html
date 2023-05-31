@@ -44,14 +44,17 @@
               <div>
                 <input type="checkbox" id="t" checked onchange="filter()">
                 <label for="t">Needs repairs</label>
+                <button onclick="filter('needs repairs', 't')">Only</button>
               </div>
               <div>
                 <input type="checkbox" id="t2" checked onchange="filter()">
                 <label for="t2">High population supplier</label>
+                <button onclick="filter('high population supplier', 't2')">Only</button>
               </div>
               <div>
                 <input type="checkbox" id="t3" checked onchange="filter()">
                 <label for="t3">Newer model</label>
+                <button onclick="filter('newer model', 't3')">Only</button>
               </div>
             </td>
           </tr>

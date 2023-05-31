@@ -25,3 +25,5 @@ Note: `daily_dataset.csv` is not included in this repo due to its large size, bu
 4. When a user mouses from one sensor on the map to another, the corresponding line chart should update with a nice transition, rather than simply destroy the old line chart and recreate a new one. I use line chart transitions <a target="_blank" href="https://cultureplot.com/mileage-goal/">here</a> (increase the mileage goal to witness).
 
 5. The Javascript logic for filtering the sensor objects on the map is a bit wonky. Would definitely need to be refactored, depending on how a client or user would want to filter by tags (and the combination of multiple tags, to be exact).
+
+6. Query certain level of tree structure to only get 1k points at a time, so not all of 2013 or 2014 for example would be showing in the linechart. Would help with performance. 
